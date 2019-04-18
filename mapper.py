@@ -10,7 +10,8 @@ for line in sys.stdin:
 
     entries = line.split(',')
     station = entries[0]
-    year = entries[1][:4]
+    date = entries[1]
+    year = date[:4]
     data_type = entries[2]
     data = float(entries[3])
     
@@ -24,14 +25,13 @@ for line in sys.stdin:
     by_year = result['by_year']
     by_year[year] = {
         tmin_sum: data if data_type == 'TMIN' else 0,
-        tmin_min: data if data_type == 'TMIN' else float('inf'),
+        tmin_min: [{temp: data, station: station, date: date}] if data_type == 'TMIN' else [],
         tmin_total: 1 if data_type == 'TMIN' else 0,
         tmin_avg: data if data_type == 'TMIN' else None,
         tmax_sum: data if data_type == 'TMAX' else 0,
-        tmax_max: data if data_type == 'TMAX' else float('-inf'),
+        tmax_max: [{temp: data, station: station, date: date}] if data_type == 'TMAX' else [],
         tmax_total: 1 if data_type == 'TMAX' else 0,
         tmax_avg: data if data_type == 'TMAX' else None
-        # TODO: 5 hottest , 5 coldest weather stations for each year excluding abnormalities or missing data 
         }
 
     print(json.dumps(result))
