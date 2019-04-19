@@ -19,11 +19,11 @@ def merge_ordered_lists(newlist, oldlist, comparer):
     return ret
 
 result = {
-    total_tmin: float('inf'),
-    total_tmin_station: None,
-    total_tmax: float('-inf'),
-    total_tmax_station: None,
-    by_year: {}
+    'total_tmin': float('inf'),
+    'total_tmin_station': None,
+    'total_tmax': float('-inf'),
+    'total_tmax_station': None,
+    'by_year': {}
     }
 
 for line in sys.stdin:
