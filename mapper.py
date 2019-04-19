@@ -2,18 +2,17 @@
 import sys
 import json
 
-firstLine = 'ID,YEAR/MONTH/DAY,ELEMENT,DATA VALUE,M-FLAG,Q-FLAG,S-FLAG,OBS-TIME'
-
 for line in sys.stdin:
-    if line == firstLine: # Ignore the header
-        continue
-
     entries = line.split(',')
     station = entries[0]
     date = entries[1]
     year = date[:4]
     data_type = entries[2]
-    data = float(entries[3])
+    data = float(entries[3]) / 10
+    qflag = entries[5]
+
+    if qflag != '': # Ignore bad data
+        continue
     
     result = {
         'total_tmin': data if data_type == 'TMIN' else float('inf'),
